@@ -7,6 +7,12 @@ existing files with new ones provided in the resources_to_copy folder
 ```bash
 
 # Add additional substitutions to the build_triggers.tf file
+
+
+sed -i "$(grep -n "substitutions_cd_pipeline_triggers" deployment/terraform/build_triggers.tf | cut -d: -f1)r app/patterns/agent_builder_search/resources_to_copy/substitutions_cd_pipeline_triggers.tf" deployment/terraform/build_triggers.tf
+sed -i "$(grep -n "substitutions_deploy_to_prod_pipeline_triggers" deployment/terraform/build_triggers.tf | cut -d: -f1)r app/patterns/agent_builder_search/resources_to_copy/substitutions_deploy_to_prod_pipeline_triggers.tf" deployment/terraform/build_triggers.tf
+
+
 sed -i "s/# To be extended for ingestion pipelines\. Do not remove this line\./$(cat app/patterns/agent_builder_search/resources_to_copy/substitutions_cd_pipeline_triggers.tf | tr '\n' '\\n' | sed 's/\//\\\//g')/g" deployment/terraform/build_triggers.tf
 sed -i "s/# To be replaced for ingestion pipelines\. Do not remove this line\./$(cat app/patterns/agent_builder_search/resources_to_copy/substitutions_deploy_to_prod_pipeline_triggers.tf | tr '\n' '\\n' | sed 's/\//\\\//g')/g" deployment/terraform/build_triggers.tf
 

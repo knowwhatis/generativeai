@@ -1,4 +1,3 @@
-_REGION                        = var.region
     _LOCATION                      = var.location
     _DATA_INGESTION_BUCKET_PREF    = var.data_ingestion_bucket_name_prefix # ! Specific to VertexAI Search pattern 
     _DATA_INGESTION_APP_NAME       = var.data_ingestion_app_name # ! Specific to VertexAI Search pattern 
