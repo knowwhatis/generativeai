@@ -12,10 +12,10 @@ sed -i "$(grep -n "substitutions_deploy_to_prod_pipeline_triggers" deployment/te
 
 
 # Add new values at the end of several tf files.
-cat app/patterns/agent_builder_search/resources_to_copy/additional_iam.tf >> deployment/terraform/vars/iam.tf
-cat app/patterns/agent_builder_search/resources_to_copy/additional_service_accounts.tf >> deployment/terraform/vars/service_accounts.tf
-cat app/patterns/agent_builder_search/resources_to_copy/additional_storage.tf >> deployment/terraform/vars/storage.tf
-cat app/patterns/agent_builder_search/resources_to_copy/additional_variables.tf >> deployment/terraform/vars/variables.tf
+cat app/patterns/agent_builder_search/resources_to_copy/additional_iam.tf >> deployment/terraform/iam.tf
+cat app/patterns/agent_builder_search/resources_to_copy/additional_service_accounts.tf >> deployment/terraform/service_accounts.tf
+cat app/patterns/agent_builder_search/resources_to_copy/additional_storage.tf >> deployment/terraform/storage.tf
+cat app/patterns/agent_builder_search/resources_to_copy/additional_variables.tf >> deployment/terraform/variables.tf
 cat app/patterns/agent_builder_search/resources_to_copy/additional_env.tfvars >> deployment/terraform/vars/env.tfvars
 # TODO: Do we need the same for deployment/terraform/dev ?
 
