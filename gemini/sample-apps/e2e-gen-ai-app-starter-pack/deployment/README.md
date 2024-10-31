@@ -43,6 +43,13 @@ The application leverages [**Terraform**](http://terraform.io) to define and pro
    gcloud services enable serviceusage.googleapis.com cloudresourcemanager.googleapis.com cloudbuild.googleapis.com secretmanager.googleapis.com
    ```
 
+4. Enable required APIs in the Staging and Prod projects. This will be required for the Terraform deployment:
+
+   ```bash
+   gcloud services enable --project YOUR_STAGING_PROJECT_ID discoveryengine.googleapis.com
+   gcloud services enable --project YOUR_PROD_PROJECT_ID discoveryengine.googleapis.com
+   ```
+
 ## Step-by-Step Guide
 
 1. **Create a Git Repository using your favorite Git provider (GitHub, GitLab, Bitbucket, etc.)**

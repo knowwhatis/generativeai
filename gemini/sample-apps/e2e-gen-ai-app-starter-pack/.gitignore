@@ -192,3 +192,7 @@ locust_env
 my_env.tfvars
 .streamlit_chats
 .saved_chats
+
+# TF state after setting up remote backend
+terraform.tfstate
+terraform.tfstate.backup

@@ -162,7 +162,7 @@ See [deployment/README.md](deployment/README.md) for instructions.
 
    ```bash
    gcloud config set project YOUR_CI_CD_PROJECT_ID
-   gcloud services enable serviceusage.googleapis.com cloudresourcemanager.googleapis.com cloudbuild.googleapis.com secretmanager.googleapis.com
+   gcloud services enable serviceusage.googleapis.com cloudresourcemanager.googleapis.com cloudbuild.googleapis.com secretmanager.googleapis.com cloudscheduler.googleapis.com
    ```
 
 2. Create a Git repository (GitHub, GitLab, Bitbucket).

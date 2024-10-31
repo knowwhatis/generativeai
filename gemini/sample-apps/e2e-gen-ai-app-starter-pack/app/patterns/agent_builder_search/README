@@ -1,0 +1,17 @@
+
+
+
+In order to implement data ingestion for the datastore, you need to replace some of the 
+existing files with new ones provided in the resources_to_copy folder
+
+```bash
+mv deployment/cd/deploy-to-prod.yaml deployment/cd/unused-deploy-to-prod.yaml
+mv deployment/cd/staging.yaml deployment/cd/unused-staging.yaml
+mv app/patterns/agent_builder_pattern/resources_to_copy/deploy-to-prod.yaml deployment/cd/deploy-to-prod.yaml
+mv app/patterns/agent_builder_pattern/resources_to_copy/staging.yaml deployment/cd/staging.yaml
+mv app/patterns/agent_builder_pattern/resources_to_copy/pipeline.py data_ingestion/pipeline.py
+mv app/patterns/agent_builder_pattern/resources_to_copy/ingestion_component.py data_ingestion/ingestion_component.py
+```
+
+
+TODO: Replace the pip calls by poetry libs in yaml files.
