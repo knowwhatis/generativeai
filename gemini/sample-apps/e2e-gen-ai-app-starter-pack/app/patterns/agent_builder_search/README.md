@@ -23,7 +23,7 @@ cat app/patterns/agent_builder_search/resources_to_copy/additional_env.tfvars >>
 mv app/patterns/agent_builder_search/resources_to_copy/main.tf deployment/terraform/main.tf
 mv app/patterns/agent_builder_search/resources_to_copy/artifact_registry.tf deployment/terraform/artifact_registry.tf
 mv app/patterns/agent_builder_search/resources_to_copy/backend.tf deployment/terraform/backend.tf
-mv app/patterns/agent_builder_search/resources_to_copy/backend.tf deployment/terraform/data_store.tf
+mv app/patterns/agent_builder_search/resources_to_copy/data_store.tf deployment/terraform/data_store.tf
 
 # replace the old files with the new ones and add the ingestion logic
 mv deployment/cd/deploy-to-prod.yaml deployment/cd/unused-deploy-to-prod.yaml
