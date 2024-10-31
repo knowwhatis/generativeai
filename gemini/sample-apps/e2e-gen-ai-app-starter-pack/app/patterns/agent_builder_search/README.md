@@ -7,8 +7,9 @@ existing files with new ones provided in the resources_to_copy folder
 ```bash
 
 # Add additional substitutions to the build_triggers.tf file
-sed -i "s/# To be extended for ingestion pipelines\. Do not remove this line\./$(cat app/patterns/agent_builder_search/resources_to_copy/substitutions_cd_pipeline_triggers.tf)/g" deployment/terraform/build_triggers.tf
-sed -i "s/# To be replaced for ingestion pipelines\. Do not remove this line\./$(cat app/patterns/agent_builder_search/resources_to_copy/substitutions_deploy_to_prod_pipeline_triggers.tf)/g" deployment/terraform/build_triggers.tf
+sed -i "s/# To be extended for ingestion pipelines\. Do not remove this line\./$(cat app/patterns/agent_builder_search/resources_to_copy/substitutions_cd_pipeline_triggers.tf | tr '\n' '\\n' | sed 's/\//\\\//g')/g" deployment/terraform/build_triggers.tf
+sed -i "s/# To be replaced for ingestion pipelines\. Do not remove this line\./$(cat app/patterns/agent_builder_search/resources_to_copy/substitutions_deploy_to_prod_pipeline_triggers.tf | tr '\n' '\\n' | sed 's/\//\\\//g')/g" deployment/terraform/build_triggers.tf
+
 
 # Add new values at the end of several tf files.
 cat app/patterns/agent_builder_search/resources_to_copy/additional_iam.tf >> deployment/terraform/vars/iam.tf
