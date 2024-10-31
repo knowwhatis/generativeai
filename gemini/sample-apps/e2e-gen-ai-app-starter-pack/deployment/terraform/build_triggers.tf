@@ -16,6 +16,7 @@ resource "google_cloudbuild_trigger" "pr_checks" {
   filename = "deployment/ci/pr_checks.yaml"
   included_files = [
     "app/**",
+    "data_ingestion/**",
     "tests/**",
     "deployment/**",
     "poetry.lock"
@@ -52,6 +53,7 @@ resource "google_cloudbuild_trigger" "cd_pipeline" {
     _ARTIFACT_REGISTRY_REPO_NAME   = var.artifact_registry_repo_name
     _CLOUD_RUN_APP_SA_NAME         = var.cloud_run_app_sa_name
     _REGION                        = var.region
+    # To be extended for ingestion pipelines. Do not remove this line.
   }
   depends_on = [resource.google_project_service.cicd_services, resource.google_project_service.shared_services]
 
@@ -71,6 +73,12 @@ resource "google_cloudbuild_trigger" "deploy_to_prod_pipeline" {
   approval_config {
     approval_required = true
   }
+  
+  substitutions = {
+    # To be replaced for ingestion pipelines. Do not remove this line.
+    # TODO: Is this actually needed?
+  }
+
   depends_on = [resource.google_project_service.cicd_services, resource.google_project_service.shared_services]
 
 }
