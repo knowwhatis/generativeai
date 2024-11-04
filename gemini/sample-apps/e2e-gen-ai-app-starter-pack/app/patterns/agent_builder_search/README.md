@@ -1,8 +1,28 @@
 
+# Agent Builder Search
+This pattern extends the base pattern with the addition of a VertexAI Agent Builder Search App as the engine to drive the retrieval of the RAG application
 
+## Architecture
+The pattern implements the following architecture:
+
+![architecture diagram](imgs/architecture.png)
+The main addition to the base pattern is the addition of the ingestion components. 
+
+From an infrastructure point of view, a vertexai agent builder datastore and search app are being initialised in both staging and prod environments. You can learn more about these [here](https://cloud.google.com/generative-ai-app-builder/docs/enterprise-search-introduction).
+
+When a new build is triggered through a commit to the main branch, in addition to updating the backend application, the data ingestion pipeline is also updated. 
+
+The data ingestion is orchestrated through a VertexAI [Pipeline](https://cloud.google.com/vertex-ai/docs/pipelines/introduction) which in its simplest form comprises of a single processing step. During this step, data are being read (in this example we start from a single pdf document) from your preferred location, then the data are being chunked and prepared for ingestion to the agent builder store which is being kicked off. The Search app is automatically updated with the latest data as soon as the data ingestion is complete with zero downtime. 
+
+Please note that the ingestion in the example is set to run automatically once per week. You may change the frequency of the update or  the triggering mechanism altogehter to match your needs. Look into the data_ingestion/pipleine.py file as the starting point for these changes. 
+
+
+## Getting Started
 
 In order to implement data ingestion for the datastore, you need to replace some of the 
 existing files with new ones provided in the resources_to_copy folder
+
+Run the following bash commands to perform all necessary copies. Once completed, follow the remaining instructions from the parent folders. 
 
 ```bash
 

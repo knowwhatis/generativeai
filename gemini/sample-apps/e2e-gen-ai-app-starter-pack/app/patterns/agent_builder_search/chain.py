@@ -37,7 +37,7 @@ EMBEDDING_MODEL = "text-embedding-004"
 LLM_MODEL = "gemini-1.5-flash-002"
 TOP_K = 5
 
-DATASTORE_ID = "jlp_ppa_01"
+DATASTORE_ID = "sample_datastore_id_01"
 VERTEX_AI_LOCATION = "europe-west2"
 AGENT_BUILDER_LOCATION = "eu"
 
