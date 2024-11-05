@@ -6,7 +6,7 @@ steps:
       [
         "build",
         "-t",
-        "$_REGION-docker.pkg.dev/$PROJECT_ID/$_ARTIFACT_REGISTRY_REPO_NAME/$_CONTAINER_NAME",
+        "$_SINGLE_REGION-docker.pkg.dev/$PROJECT_ID/$_ARTIFACT_REGISTRY_REPO_NAME/$_CONTAINER_NAME",
         ".",
       ]
 
@@ -14,9 +14,28 @@ steps:
     args:
       [
         "push",
-        "$_REGION-docker.pkg.dev/$PROJECT_ID/$_ARTIFACT_REGISTRY_REPO_NAME/$_CONTAINER_NAME",
+        "$_SINGLE_REGION-docker.pkg.dev/$PROJECT_ID/$_ARTIFACT_REGISTRY_REPO_NAME/$_CONTAINER_NAME",
       ]
 
+  # build & push container for data ingestion cloud run
+  # - name: "gcr.io/cloud-builders/docker"
+  #   id: build-data-ingestion-container
+  #   args:
+  #     [
+  #       "build",
+  #       "-t",
+  #       "$_SINGLE_REGION-docker.pkg.dev/$PROJECT_ID/$_ARTIFACT_REGISTRY_REPO_NAME/$_DATA_INGESTION_APP_NAME",
+  #       "-f",
+  #       "Dockerfile_data_ingestion",
+  #       ".",
+  #     ]
+
+  # - name: "gcr.io/cloud-builders/docker"
+  #   args:
+  #     [
+  #       "push",
+  #       "$_SINGLE_REGION-docker.pkg.dev/$PROJECT_ID/$_ARTIFACT_REGISTRY_REPO_NAME/$_DATA_INGESTION_APP_NAME",
+  #     ]
 
   # Deploy to Staging
   - name: "gcr.io/cloud-builders/gcloud"
@@ -27,9 +46,9 @@ steps:
       - "deploy"
       - "genai-app-sample"
       - "--image"
-      - "$_REGION-docker.pkg.dev/$PROJECT_ID/$_ARTIFACT_REGISTRY_REPO_NAME/$_CONTAINER_NAME"
+      - "$_SINGLE_REGION-docker.pkg.dev/$PROJECT_ID/$_ARTIFACT_REGISTRY_REPO_NAME/$_CONTAINER_NAME"
       - "--region"
-      - "${_REGION}"
+      - "${_SINGLE_REGION}"
       - "--project"
       - "${_STAGING_PROJECT_ID}"
       - "--min-instances"
@@ -46,6 +65,35 @@ steps:
       - "--set-env-vars"
       - "COMMIT_SHA=${COMMIT_SHA}"
 
+  # - name: "gcr.io/cloud-builders/gcloud"
+  #   id: deploy-data-ingestion-staging
+  #   entrypoint: gcloud
+  #   args:
+  #     - "run"
+  #     - "deploy"
+  #     - "${_DATA_INGESTION_APP_NAME}"
+  #     - "--image"
+  #     - "$_SINGLE_REGION-docker.pkg.dev/$PROJECT_ID/$_ARTIFACT_REGISTRY_REPO_NAME/$_DATA_INGESTION_APP_NAME"
+  #     - "--region"
+  #     - "${_SINGLE_REGION}"
+  #     - "--project"
+  #     - "${_STAGING_PROJECT_ID}"
+  #     - "--min-instances"
+  #     - "0"
+  #     - "--no-cpu-throttling"
+  #     - "--cpu"
+  #     - "4"
+  #     - "--memory"
+  #     - "4Gi"
+  #     - "--concurrency"
+  #     - "40"
+  #     - "--timeout"
+  #     - "60m"
+  #     - "--service-account"
+  #     - "${_CLOUD_RUN_APP_SA_NAME}@${_STAGING_PROJECT_ID}.iam.gserviceaccount.com"
+  #     - "--set-env-vars"
+  #     - "COMMIT_SHA=${COMMIT_SHA},INPUT_BUCKET=${_DATA_INGESTION_BUCKET_PREF}-${_STAGING_PROJECT_ID},SINGLE_REGION=${_SINGLE_REGION},MULTI_REGION=${_MULTI_REGION},DATA_STORE_ID=${_DATA_STORE_ID},PROJECT_ID=${_STAGING_PROJECT_ID}" 
+
   - name: "python:3.10"
     id: deploy-data-ingestion-pipeline-staging
     entrypoint: bash
@@ -56,12 +104,12 @@ steps:
       export PATH="/builder/home/.local/bin:$$PATH"
       poetry config virtualenvs.create false
       poetry install 
-      poetry run python data_ingestion/pipeline.py
+      poetry run python app/data_ingestion/pipeline.py
     env:
       - "INPUT_BUCKET=${_DATA_INGESTION_BUCKET_PREF}-${_STAGING_PROJECT_ID}"
       - "PIPELINE_ARTIFACT_OUTPUT=${_DATA_INGESTION_BUCKET_PREF}-${_STAGING_PROJECT_ID}-pipeline-artifacts"
-      - "REGION=${_REGION}"
-      - "LOCATION=${_LOCATION}"
+      - "SINGLE_REGION=${_SINGLE_REGION}"
+      - "MULTI_REGION=${_MULTI_REGION}"
       - "DATA_STORE_ID=${_DATA_STORE_ID}"
       - "PROJECT_ID=${_STAGING_PROJECT_ID}"
       - "SERVICE_ACCOUNT=${_VERTEX_AI_APP_SA_NAME}@${_STAGING_PROJECT_ID}.iam.gserviceaccount.com"
@@ -75,7 +123,7 @@ steps:
       - "-c"
       - |
         echo $(gcloud run services describe genai-app-sample \
-        --region ${_REGION} --project ${_STAGING_PROJECT_ID} --format="value(status.url)") > staging_url.txt
+        --region ${_SINGLE_REGION} --project ${_STAGING_PROJECT_ID} --format="value(status.url)") > staging_url.txt
 
   # Fetch ID Token
   - name: gcr.io/cloud-builders/gcloud
@@ -128,11 +176,11 @@ steps:
       - "run"
       - "deploy-to-prod-pipeline"
       - "--region"
-      - "$LOCATION"
+      - "$_SINGLE_REGION"
       - "--project"
       - "$PROJECT_ID"
       - "--substitutions"
-      - "_PROD_PROJECT_ID=${_PROD_PROJECT_ID},_ARTIFACT_REGISTRY_REPO_NAME=${_ARTIFACT_REGISTRY_REPO_NAME},_CONTAINER_NAME=${_CONTAINER_NAME},_CLOUD_RUN_APP_SA_NAME=${_CLOUD_RUN_APP_SA_NAME},_VERTEX_AI_APP_SA_NAME=${_VERTEX_AI_APP_SA_NAME},_REGION=${_REGION},_DATA_INGESTION_APP_NAME=${_DATA_INGESTION_APP_NAME},_DATA_INGESTION_BUCKET_PREF=${_DATA_INGESTION_BUCKET_PREF}"
+      - "_PROD_PROJECT_ID=${_PROD_PROJECT_ID},_ARTIFACT_REGISTRY_REPO_NAME=${_ARTIFACT_REGISTRY_REPO_NAME},_CONTAINER_NAME=${_CONTAINER_NAME},_CLOUD_RUN_APP_SA_NAME=${_CLOUD_RUN_APP_SA_NAME},_VERTEX_AI_APP_SA_NAME=${_VERTEX_AI_APP_SA_NAME},_SINGLE_REGION=${_SINGLE_REGION},_DATA_INGESTION_APP_NAME=${_DATA_INGESTION_APP_NAME},_DATA_INGESTION_BUCKET_PREF=${_DATA_INGESTION_BUCKET_PREF}"
       - "--sha"
       - $COMMIT_SHA
 
@@ -144,7 +192,7 @@ steps:
       - |
         echo "_________________________________________________________________________"
         echo "Production deployment triggered. View progress and / or approve on the Cloud Build Console:"
-        echo "https://console.cloud.google.com/cloud-build/builds;region=$LOCATION"
+        echo "https://console.cloud.google.com/cloud-build/builds;region=$_SINGLE_REGION"
         echo "_________________________________________________________________________"
 
 substitutions:
@@ -156,9 +204,9 @@ substitutions:
   _ARTIFACT_REGISTRY_REPO_NAME: genai-containers
   _CLOUD_RUN_APP_SA_NAME: genai-app-sample-cr-sa
   _VERTEX_AI_APP_SA_NAME: YOUR_VERTEX_AI_APP_SA_NAME
-  _REGION: YOUR_REGION
+  _SINGLE_REGION: YOUR_SINGLE_REGION_LOCATION
   _DATA_INGESTION_BUCKET_PREF: DATA_INGESTION_BUCKET_PREFFIX_NAME
-  _LOCATION: YOUR_MULTI_REGION_LOCATION
+  _MULTI_REGION: YOUR_MULTI_REGION_LOCATION
   _DATA_STORE_ID: YOUR_AGENT_BUILDER_DATASTORE_ID
 
 options:

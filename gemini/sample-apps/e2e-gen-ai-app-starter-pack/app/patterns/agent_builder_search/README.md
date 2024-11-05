@@ -45,6 +45,8 @@ mv app/patterns/agent_builder_search/resources_to_copy/main.tf deployment/terraf
 mv app/patterns/agent_builder_search/resources_to_copy/artifact_registry.tf deployment/terraform/artifact_registry.tf
 mv app/patterns/agent_builder_search/resources_to_copy/backend.tf deployment/terraform/backend.tf
 mv app/patterns/agent_builder_search/resources_to_copy/data_store.tf deployment/terraform/data_store.tf
+# replace tf file with different substitution parameter names
+mv app/patterns/agent_builder_search/resources_to_copy/build_triggers.tf deployment/terraform/build_triggers.tf
 
 # replace the old files with the new ones and add the ingestion logic
 mv deployment/cd/deploy-to-prod.yaml deployment/cd/unused-deploy-to-prod.yaml
@@ -54,6 +56,3 @@ mv app/patterns/agent_builder_search/resources_to_copy/staging.yaml deployment/c
 mv app/patterns/agent_builder_search/resources_to_copy/pipeline.py data_ingestion/pipeline.py
 mv app/patterns/agent_builder_search/resources_to_copy/ingestion_component.py data_ingestion/ingestion_component.py
 ```
-
-
-TODO: Replace the pip calls by poetry libs in yaml files.

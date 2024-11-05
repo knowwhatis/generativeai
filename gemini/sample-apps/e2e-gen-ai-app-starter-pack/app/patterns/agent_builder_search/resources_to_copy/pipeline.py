@@ -5,8 +5,8 @@ from kfp import compiler, dsl
 from app.data_ingestion.ingestion_component import ingest_into_datatore
 
 project_id = os.getenv("PROJECT_ID", 'No project id set')
-region_vertex = os.getenv("REGION", 'No Vertex AI region set')
-region_search = os.getenv("LOCATION", 'No agent builder region set')
+region_vertex = os.getenv("SINGLE_REGION", 'No Vertex AI region set')
+region_search = os.getenv("MULTI_REGION", 'No agent builder region set')
 input_bucket = os.getenv("INPUT_BUCKET", 'No input bucket set')
 data_store_id = os.getenv("DATA_STORE_ID", 'No agent builder data store id set')
 service_account = os.getenv("SERVICE_ACCOUNT", 'No service account set')

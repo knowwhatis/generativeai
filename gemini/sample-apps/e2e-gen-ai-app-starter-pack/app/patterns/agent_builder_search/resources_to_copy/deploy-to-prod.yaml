@@ -7,9 +7,9 @@ steps:
       - "deploy"
       - "genai-app-sample"
       - "--image"
-      - "$_REGION-docker.pkg.dev/$PROJECT_ID/$_ARTIFACT_REGISTRY_REPO_NAME/$_CONTAINER_NAME"
+      - "$_SINGLE_REGION-docker.pkg.dev/$PROJECT_ID/$_ARTIFACT_REGISTRY_REPO_NAME/$_CONTAINER_NAME"
       - "--region"
-      - "$_REGION"
+      - "$_SINGLE_REGION"
       - "--project"
       - $_PROD_PROJECT_ID
       - "--min-instances"
@@ -36,12 +36,12 @@ steps:
       export PATH="/builder/home/.local/bin:$$PATH"
       poetry config virtualenvs.create false
       poetry install 
-      poetry run python data_ingestion/pipeline.py
+      poetry run python app/data_ingestion/pipeline.py
     env:
       - "INPUT_BUCKET=${_DATA_INGESTION_BUCKET_PREF}-${_PROD_PROJECT_ID}"
       - "PIPELINE_ARTIFACT_OUTPUT=${_DATA_INGESTION_BUCKET_PREF}-${_PROD_PROJECT_ID}-pipeline-artifacts"
-      - "REGION=${_REGION}"
-      - "LOCATION=${_LOCATION}"
+      - "SINGLE_REGION=${_SINGLE_REGION}"
+      - "MULTI_REGION=${_MULTI_REGION}"
       - "DATA_STORE_ID=${_DATA_STORE_ID}"
       - "PROJECT_ID=${_PROD_PROJECT_ID}"
       - "SERVICE_ACCOUNT=${_VERTEX_AI_APP_SA_NAME}@${_PROD_PROJECT_ID}.iam.gserviceaccount.com"
@@ -54,9 +54,9 @@ substitutions:
   _ARTIFACT_REGISTRY_REPO_NAME: genai-containers
   _CLOUD_RUN_APP_SA_NAME: genai-app-sample-cr-sa
   _VERTEX_AI_APP_SA_NAME: YOUR_VERTEX_AI_APP_SA_NAME
-  _REGION: YOUR_REGION
+  _SINGLE_REGION: YOUR_SINGLE_REGION_LOCATION
   _DATA_INGESTION_BUCKET_PREF: DATA_INGESTION_BUCKET_PREFFIX_NAME
-  _LOCATION: YOUR_MULTI_REGION_LOCATION
+  _MULTI_REGION: YOUR_MULTI_REGION_LOCATION
   _DATA_STORE_ID: YOUR_AGENT_BUILDER_DATASTORE_ID
 options:
   logging: CLOUD_LOGGING_ONLY

@@ -165,8 +165,8 @@ def ingest_into_datatore(project_id:str,region_vertex:str,region_search:str,inpu
 
     def main(project_id:str,region_vertex:str,region_search:str,input_bucket:str,data_store_id:str):
         # project_id = os.getenv("PROJECT_ID", 'No project id set')
-        # region_vertex = os.getenv("REGION", 'No Vertex AI region set')
-        # region_search = os.getenv("LOCATION", 'No agent builder region set')
+        # region_vertex = os.getenv("SINGLE_REGION", 'No Vertex AI region set')
+        # region_search = os.getenv("MULTI_REGION", 'No agent builder region set')
         # input_bucket = os.getenv("INPUT_BUCKET", 'No input bucket set')
         # data_store_id = os.getenv("DATA_STORE_ID", 'No agent builder data store id set')
 
