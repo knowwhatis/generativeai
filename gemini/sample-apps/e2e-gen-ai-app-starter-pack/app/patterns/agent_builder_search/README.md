@@ -1,12 +1,22 @@
 
 # Agent Builder Search
-This pattern extends the base pattern with the addition of a VertexAI Agent Builder Search App as the engine to drive the retrieval of the RAG application
+This pattern extends the GenAI App Starter Pack, introducing a robust data ingestion pipeline for enriching your Retrieval Augmented Generation (RAG) applications. It leverages Vertex AI Search, enabling you to ingest, process, and embed your custom data for improved relevance and context in generated responses.
 
 ## Architecture
 The pattern implements the following architecture:
 
 ![architecture diagram](imgs/architecture.png)
 The main addition to the base pattern is the addition of the ingestion components. 
+
+### Key Features
+
+* **Vertex AI Search Integration:**  Utilizes Vertex AI Search for efficient data storage and retrieval.
+* **Automated Data Ingestion Pipeline:** Automates the process of ingesting data from input sources.
+* **Custom Embeddings:** Generates embeddings using Vertex AI Embeddings and incorporates them into your data for enhanced semantic search.
+* **Terraform Deployment:** Ingestion pipeline is instantiated with Terraform alongside the rest of the infrastructure of the starter pack.
+* **Cloud Build Integration:**  Deployment of ingestion pipelines is added to the CD pipelines of the starter pack.
+* **Customizable Code:** Easily adapt and customize the code to fit your specific application needs and data sources.
+
 
 From an infrastructure point of view, a vertexai agent builder datastore and search app are being initialised in both staging and prod environments. You can learn more about these [here](https://cloud.google.com/generative-ai-app-builder/docs/enterprise-search-introduction).
 
@@ -22,7 +32,7 @@ Please note that the ingestion in the example is set to run automatically once p
 In order to implement data ingestion for the datastore, you need to replace some of the 
 existing files with new ones provided in the resources_to_copy folder
 
-Run the following bash commands to perform all necessary copies. Once completed, follow the remaining instructions from the parent folders. 
+Run the following bash commands to perform all necessary copies. Once completed, follow the remaining instructions from the parent [folders](https://github.com/GoogleCloudPlatform/generative-ai/blob/main/gemini/sample-apps/e2e-gen-ai-app-starter-pack/deployment/README.md). 
 
 ```bash
 
