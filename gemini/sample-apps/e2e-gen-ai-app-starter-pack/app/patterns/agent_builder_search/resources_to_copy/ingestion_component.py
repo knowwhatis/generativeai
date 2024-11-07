@@ -5,7 +5,6 @@ from kfp.dsl import component
            packages_to_install=["langchain","langchain-community","vertexai","google-cloud-discoveryengine", "langchain-google-vertexai", "pypdf"])
 def ingest_into_datatore(project_id:str,region_vertex:str,region_search:str,input_bucket:str,data_store_id:str) -> str:
     import json
-    import os
     import vertexai
     import uuid
     from google.api_core.client_options import ClientOptions
@@ -102,7 +101,7 @@ def ingest_into_datatore(project_id:str,region_vertex:str,region_search:str,inpu
         schemaClient = discoveryengine.SchemaServiceClient(client_options=client_options)
         collection = "default_collection"
 
-        name = f"projects/{project_id}/locations/{location}/collections/default_collection/dataStores/{data_store_id}/schemas/default_schema"
+        name = f"projects/{project_id}/locations/{location}/collections/{collection}/dataStores/{data_store_id}/schemas/default_schema"
 
         getSchemaRequest = discoveryengine.GetSchemaRequest(
             name=name

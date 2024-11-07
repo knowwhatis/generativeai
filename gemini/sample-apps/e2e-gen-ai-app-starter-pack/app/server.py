@@ -35,7 +35,7 @@ from traceloop.sdk import Instruments, Traceloop
 # Or choose one of the following pattern chains to test by uncommenting it:
 
 # Custom RAG QA
-from app.patterns.agent_builder_search.chain import chain
+# from app.patterns.agent_builder_search.chain import chain
 
 # LangGraph dummy agent
 # from app.patterns.langgraph_dummy_agent.chain import chain
