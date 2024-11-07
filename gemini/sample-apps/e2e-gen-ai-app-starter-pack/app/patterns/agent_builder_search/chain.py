@@ -50,10 +50,7 @@ credentials, project_id = google.auth.default()
 vertexai.init(project=project_id)
 
 # Set up embedding model and vertex AI retriever
-embedding = VertexAIEmbeddings(
-    model_name=EMBEDDING_MODEL, 
-    location=VERTEX_AI_LOCATION
-)
+embedding = VertexAIEmbeddings(model_name=EMBEDDING_MODEL, location=VERTEX_AI_LOCATION)
 
 retriever = VertexAISearchRetriever(
     project_id=project_id,
