@@ -40,3 +40,7 @@ Run the following bash commands to perform all necessary copies. Once completed,
 ```bash
 ./app/patterns/agent_builder_search/prepare_pattern.sh
 ```
+
+## Additional note:
+
+Since Vertex AI uses regions and Agent Builder uses multiregions (eu or us or global), we have named them differently (MULTI_REGION vs SINGLE_REGION).
