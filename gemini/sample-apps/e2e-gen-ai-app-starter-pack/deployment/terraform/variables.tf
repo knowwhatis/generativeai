@@ -124,7 +124,7 @@ variable "cicd_sa_deployment_required_roles" {
   default     = [
     "roles/run.developer", 
     "roles/iam.serviceAccountUser", 
-    "roles/aiplatform.user", # ! Specific to VertexAI Search pattern 
+    "roles/aiplatform.user", # ! Specific to Vertex AI Search pattern 
     #TODO: Is that acceptable to leave the line above?
   ]
 }

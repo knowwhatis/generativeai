@@ -1,4 +1,4 @@
-# ! Specific to VertexAI Search pattern 
+# ! Specific to Vertex AI Search pattern 
 # -------------------------------------
 
 provider "google" {

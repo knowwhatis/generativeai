@@ -1,6 +1,6 @@
 # Agent Builder Search Pattern
 
-This pattern extends the GenAI App Starter Pack, introducing a robust **data ingestion pipeline** for enriching your Retrieval Augmented Generation (RAG) applications. It leverages Vertex AI Search, enabling you to ingest, process, and embed your custom data for improved relevance and context in generated responses.
+This pattern extends the Gen AI App Starter Pack, introducing a robust **data ingestion pipeline** for enriching your Retrieval Augmented Generation (RAG) applications. It leverages Vertex AI Search, enabling you to ingest, process, and embed your custom data for improved relevance and context in generated responses.
 
 **Introduction of the data ingestion pipeline production ready:** This pattern will give you all the infrastructure to create a Vertex AI pipeline with your custom code. Because it uses Vertex AI data pipeline, you will benefit from all its features. For example, you can choose to run it once or multiple times or on a schedule.
 
@@ -26,7 +26,7 @@ From an infrastructure point of view, a vertexai agent builder datastore and sea
 
 When a new build is triggered through a commit to the main branch, in addition to updating the backend application, the data ingestion pipeline is also updated.
 
-The data ingestion is orchestrated through a VertexAI [Pipeline](https://cloud.google.com/vertex-ai/docs/pipelines/introduction) which in its simplest form comprises of a single processing step. During this step, data are being read (in this example we start from a single pdf document) from your preferred location, then the data are being chunked and prepared for ingestion to the agent builder store which is being kicked off. The Search app is automatically updated with the latest data as soon as the data ingestion is complete with zero downtime.
+The data ingestion is orchestrated through a Vertex AI [Pipeline](https://cloud.google.com/vertex-ai/docs/pipelines/introduction) which in its simplest form comprises of a single processing step. During this step, data are being read (in this example we start from a single pdf document) from your preferred location, then the data are being chunked and prepared for ingestion to the agent builder store which is being kicked off. The Search app is automatically updated with the latest data as soon as the data ingestion is complete with zero downtime.
 
 Please note that the ingestion in the example is set to run automatically once per week. You may change the frequency of the update or  the triggering mechanism altogether to match your needs. Look into the data_ingestion/pipeline.py file as the starting point for these changes.
 

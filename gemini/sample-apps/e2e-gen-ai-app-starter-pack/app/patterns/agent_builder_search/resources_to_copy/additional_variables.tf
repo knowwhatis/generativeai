@@ -1,7 +1,7 @@
-# ! Specific to VertexAI Search pattern
+# ! Specific to Vertex AI Search pattern
 
 variable "vertexai_pipeline_app_sa_name" {
-  description = "Service account name to be used for the VertexAI service"
+  description = "Service account name to be used for the Vertex AI service"
   type        = string
   default     = "data-ingestion-vertexai-sa"
 }
@@ -13,7 +13,7 @@ variable "location" {
 }
 
 variable "vertexai_roles" {
-  description = "List of roles to assign to the VertexAI runner service account"
+  description = "List of roles to assign to the Vertex AI runner service account"
   type        = list(string)
   default = [
     "roles/storage.admin",

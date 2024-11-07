@@ -1,6 +1,6 @@
 
-# 5. Grant VertexAI SA the required permissions to run the ingestion
-# ! Specific to VertexAI Search pattern 
+# 5. Grant Vertex AI SA the required permissions to run the ingestion
+# ! Specific to Vertex AI Search pattern 
 resource "google_project_iam_member" "vertexai_pipeline_sa_roles" {
   for_each = {
     for pair in setproduct(keys(local.project_ids), var.vertexai_roles) :
