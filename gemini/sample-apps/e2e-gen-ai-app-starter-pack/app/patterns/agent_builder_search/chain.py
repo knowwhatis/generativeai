@@ -14,6 +14,7 @@
 # mypy: disable-error-code="arg-type,attr-defined"
 # pylint: disable=W0613, W0622
 
+import os
 import logging
 from typing import Any, Dict, Iterator, List
 
@@ -37,9 +38,9 @@ EMBEDDING_MODEL = "text-embedding-004"
 LLM_MODEL = "gemini-1.5-flash-002"
 TOP_K = 5
 
-DATASTORE_ID = "sample_datastore_id_01"
-VERTEX_AI_LOCATION = "europe-west2"
-AGENT_BUILDER_LOCATION = "eu"
+DATASTORE_ID = os.getenv("DATA_STORE_ID", "sample_datastore_id_01")
+VERTEX_AI_LOCATION = os.getenv("SINGLE_REGION", "us-central1")
+AGENT_BUILDER_LOCATION = os.getenv("MULTI_REGION", "us")
 
 # Initialize logging
 logging.basicConfig(level=logging.INFO)

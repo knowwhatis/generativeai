@@ -63,7 +63,7 @@ steps:
       - "--service-account"
       - "${_CLOUD_RUN_APP_SA_NAME}@${_STAGING_PROJECT_ID}.iam.gserviceaccount.com"
       - "--set-env-vars"
-      - "COMMIT_SHA=${COMMIT_SHA}"
+      - "COMMIT_SHA=${COMMIT_SHA},DATA_STORE_ID=${_DATA_STORE_ID},SINGLE_REGION=${_SINGLE_REGION},MULTI_REGION=${_MULTI_REGION}"
 
   # - name: "gcr.io/cloud-builders/gcloud"
   #   id: deploy-data-ingestion-staging
