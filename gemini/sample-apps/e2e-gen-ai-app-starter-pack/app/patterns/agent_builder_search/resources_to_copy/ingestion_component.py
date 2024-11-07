@@ -3,7 +3,7 @@ from kfp.dsl import component
 
 @component(base_image="gcr.io/ml-pipeline/google-cloud-pipeline-components:2.0.0b5",
            packages_to_install=["langchain","langchain-community","vertexai","google-cloud-discoveryengine", "langchain-google-vertexai", "pypdf"])
-def ingest_into_datatore(project_id:str,region_vertex:str,region_search:str,input_bucket:str,data_store_id:str) -> str:
+def ingest_into_datastore(project_id:str,region_vertex:str,region_search:str,input_bucket:str,data_store_id:str) -> str:
     import json
     import vertexai
     import uuid

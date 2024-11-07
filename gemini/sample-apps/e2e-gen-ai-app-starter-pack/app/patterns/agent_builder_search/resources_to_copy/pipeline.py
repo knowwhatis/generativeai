@@ -2,7 +2,7 @@
 import os
 from google.cloud import aiplatform
 from kfp import compiler, dsl
-from app.data_ingestion.ingestion_component import ingest_into_datatore
+from app.data_ingestion.ingestion_component import ingest_into_datastore
 
 project_id = os.getenv("PROJECT_ID", 'No project id set')
 region_vertex = os.getenv("SINGLE_REGION", 'No Vertex AI region set')
@@ -31,17 +31,17 @@ print("cron_schedule: ", cron_schedule)
     pipeline_root=pipeline_root,
 )
 def pipeline(project_id: str,region_vertex: str,region_search: str,input_bucket: str,data_store_id: str):
-    ingest_into_datatore(project_id=project_id,region_vertex=region_vertex,region_search=region_search,input_bucket=input_bucket,data_store_id=data_store_id)
+    ingest_into_datastore(project_id=project_id,region_vertex=region_vertex,region_search=region_search,input_bucket=input_bucket,data_store_id=data_store_id)
      
 
-compiler.Compiler().compile(pipeline_func=pipeline, package_path="injestion_pipeline.json")
+compiler.Compiler().compile(pipeline_func=pipeline, package_path="ingestion_pipeline.json")
 
 
-DISPLAY_NAME = "injestion_pipeline_job"
+DISPLAY_NAME = "ingestion_pipeline_job"
 
 job = aiplatform.PipelineJob(
     display_name=DISPLAY_NAME,
-    template_path="injestion_pipeline.json",
+    template_path="ingestion_pipeline.json",
     pipeline_root=pipeline_root,
     project=project_id,
     location=region_vertex,
@@ -71,5 +71,5 @@ else:
     schedule_list[0].update(cron=cron_schedule)
     print("Schedule updated")
     for schedule in schedule_list[1:]:
-        print("Duplicate scehdule found, deleting it")
+        print("Duplicate schedule found, deleting it")
         schedule.delete()
