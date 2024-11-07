@@ -1,8 +1,8 @@
 [tool.poetry]
-name = "jlp-ppa"
+name = "starter-app-sample"
 version = "0.1.0"
 description = ""
-authors = ["Tibo <tibo@google.com>", "Georgios <schinasg@google.com>"]
+authors = ["Your Name <your@email.com>"]
 packages = [
     { include = "app" },
 ]
@@ -18,7 +18,7 @@ langchain = "^0.3.0"
 google-cloud-aiplatform = {extras = ["rapid-evaluation"], version = "^1.59.0"}
 scikit-learn = "^1.5.0"
 fastapi = "0.110.3"
-langchain-google-community = {extras = ["vertexaisearch"], version = "^2.0.0"}
+langchain-google-community = {extras = ["vertexaisearch"], version = "^2.0.2"}
 pypdf = "^4.3.1"
 grpcio = "1.64.1"
 langgraph = "^0.2.21"
