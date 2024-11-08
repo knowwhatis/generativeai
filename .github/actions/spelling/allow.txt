@@ -190,6 +190,7 @@ loghub
 Logrus
 Lottry
 MLB
+MLOPS
 MSCHF
 MSGSEND
 MTL
@@ -641,6 +642,7 @@ metadatas
 mgrs
 miranda
 millis
+mlops
 morty
 moviepy
 mpld
