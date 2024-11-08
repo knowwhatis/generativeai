@@ -26,7 +26,7 @@ From an infrastructure point of view, a vertexai agent builder datastore and sea
 
 When a new build is triggered through a commit to the main branch, in addition to updating the backend application, the data ingestion pipeline is also updated.
 
-The data ingestion is orchestrated through a Vertex AI [Pipeline](https://cloud.google.com/vertex-ai/docs/pipelines/introduction) which in its simplest form comprises of a single processing step. During this step, data are being read (in this example we start from a single pdf document) from your preferred location, then the data are being chunked and prepared for ingestion to the agent builder store which is being kicked off. The Search app is automatically updated with the latest data as soon as the data ingestion is complete with zero downtime.
+The data ingestion is orchestrated through a Vertex AI [Pipeline](https://cloud.google.com/vertex-ai/docs/pipelines/introduction) which in its simplest form comprises of a single processing step. During this step, data are being read (in this example we start from a single PDF document) from your preferred location, then the data are being chunked and prepared for ingestion to the agent builder store which is being kicked off. The Search app is automatically updated with the latest data as soon as the data ingestion is complete with zero downtime.
 
 Please note that the ingestion in the example is set to run automatically once per week. You may change the frequency of the update or  the triggering mechanism altogether to match your needs. Look into the data_ingestion/pipeline.py file as the starting point for these changes.
 
@@ -41,6 +41,6 @@ Run the following bash commands to perform all necessary copies. Once completed,
 ./app/patterns/agent_builder_search/prepare_pattern.sh
 ```
 
-## Additional note:
+## Additional note
 
 Since Vertex AI uses regions and Agent Builder uses multiregions (eu or us or global), we have named them differently (MULTI_REGION vs SINGLE_REGION).

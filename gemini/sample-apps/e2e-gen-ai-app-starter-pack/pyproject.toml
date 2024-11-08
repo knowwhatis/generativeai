@@ -28,6 +28,7 @@ langchain-core = "^0.3.9"
 google-cloud-pipeline-components = "^2.17.0"
 kfp = "^2.7"
 pandas = "^2.2.3"
+tqdm = "^4.67.0"
 
 
 [tool.poetry.group.dev.dependencies]

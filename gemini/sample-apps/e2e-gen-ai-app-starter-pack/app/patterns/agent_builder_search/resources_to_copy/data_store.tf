@@ -2,13 +2,13 @@
 # -------------------------------------
 
 provider "google" {
-  alias = "staging_billing_override"
+  alias                 = "staging_billing_override"
   billing_project       = var.staging_project_id
   user_project_override = true
 }
 
 provider "google" {
-  alias = "prod_billing_override"
+  alias                 = "prod_billing_override"
   billing_project       = var.prod_project_id
   user_project_override = true
 }
@@ -22,15 +22,15 @@ resource "google_discovery_engine_data_store" "data_store_staging" {
   content_config              = "NO_CONTENT"
   solution_types              = ["SOLUTION_TYPE_SEARCH"]
   create_advanced_site_search = false
-  provider = google.staging_billing_override
+  provider                    = google.staging_billing_override
 }
 resource "google_discovery_engine_search_engine" "search_engine_staging" {
-  project                     = var.staging_project_id
-  engine_id                   = "search_engine-${var.staging_project_id}-staging"
-  collection_id               = "default_collection"
-  location                    = google_discovery_engine_data_store.data_store_staging.location
-  display_name                = "Search Engine App Staging"
-  data_store_ids              = [google_discovery_engine_data_store.data_store_staging.data_store_id]
+  project        = var.staging_project_id
+  engine_id      = "search_engine-${var.staging_project_id}-staging"
+  collection_id  = "default_collection"
+  location       = google_discovery_engine_data_store.data_store_staging.location
+  display_name   = "Search Engine App Staging"
+  data_store_ids = [google_discovery_engine_data_store.data_store_staging.data_store_id]
   search_engine_config {
     search_tier = "SEARCH_TIER_ENTERPRISE"
   }
@@ -47,15 +47,15 @@ resource "google_discovery_engine_data_store" "data_store_prod" {
   content_config              = "NO_CONTENT"
   solution_types              = ["SOLUTION_TYPE_SEARCH"]
   create_advanced_site_search = false
-  provider = google.prod_billing_override
+  provider                    = google.prod_billing_override
 }
 resource "google_discovery_engine_search_engine" "search_engine_prod" {
-  project                     = var.prod_project_id
-  engine_id                   = "search_engine-${var.prod_project_id}-prod"
-  collection_id               = "default_collection"
-  location                    = google_discovery_engine_data_store.data_store_prod.location
-  display_name                = "Search Engine App Prod"
-  data_store_ids              = [google_discovery_engine_data_store.data_store_prod.data_store_id]
+  project        = var.prod_project_id
+  engine_id      = "search_engine-${var.prod_project_id}-prod"
+  collection_id  = "default_collection"
+  location       = google_discovery_engine_data_store.data_store_prod.location
+  display_name   = "Search Engine App Prod"
+  data_store_ids = [google_discovery_engine_data_store.data_store_prod.data_store_id]
   search_engine_config {
     search_tier = "SEARCH_TIER_ENTERPRISE"
   }
