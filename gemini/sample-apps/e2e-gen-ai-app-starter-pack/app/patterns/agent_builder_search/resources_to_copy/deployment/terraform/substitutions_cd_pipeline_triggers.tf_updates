@@ -4,3 +4,4 @@
     _VERTEX_AI_APP_SA_NAME        = var.vertexai_pipeline_app_sa_name # ! Specific to Vertex AI Search pattern 
     _SINGLE_REGION                 = var.region
     _MULTI_REGION                  = var.location
+    _INGESTION_PIPELINE_NAME       = var.ingestion_pipeline_name # ! Specific to Vertex AI Search pattern

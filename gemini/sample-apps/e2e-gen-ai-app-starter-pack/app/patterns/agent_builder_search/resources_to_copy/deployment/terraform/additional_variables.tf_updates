@@ -37,3 +37,8 @@ variable "data_ingestion_app_name" {
   default = "data-ingestion-app"
 }
 
+variable "ingestion_pipeline_name" {
+  description = "The name of the Vertex AI Pipeline name used for data ingestion"
+  type = string
+  default = "data-ingestion-pipeline"
+}
