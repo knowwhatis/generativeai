@@ -57,9 +57,11 @@ retriever = VertexAISearchRetriever(
     data_store_id=DATASTORE_ID,
     location_id=AGENT_BUILDER_LOCATION,
     engine_data_type=1,
+    # The following parameters are used when you want to search
+    # using custom embeddings in Agent Builder.
     # The ratio is set to 0 by default to not use custom
     # embeddings (We believe the relevance search is more
-    # performant but you can adapt the ratio as you need.
+    # performant) but you can adapt the ratio as you need.
     custom_embedding_ratio=0,
     custom_embedding=embedding,
     custom_embedding_field_path="embedding",
