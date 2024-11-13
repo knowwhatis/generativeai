@@ -16,7 +16,6 @@ resource "google_cloudbuild_trigger" "pr_checks" {
   filename = "deployment/ci/pr_checks.yaml"
   included_files = [
     "app/**",
-    "data_ingestion/**",
     "tests/**",
     "deployment/**",
     "poetry.lock"

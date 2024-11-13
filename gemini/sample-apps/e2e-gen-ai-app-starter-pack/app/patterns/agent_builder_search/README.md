@@ -28,7 +28,7 @@ When a new build is triggered through a commit to the main branch, in addition t
 
 The data ingestion is orchestrated through a Vertex AI [Pipeline](https://cloud.google.com/vertex-ai/docs/pipelines/introduction) which in its simplest form comprises of a single processing step. During this step, data are being read (in this example we start from a single PDF document) from your preferred location, then the data are being chunked and prepared for ingestion to the agent builder store which is being kicked off. The Search app is automatically updated with the latest data as soon as the data ingestion is complete with zero downtime.
 
-Please note that the ingestion in the example is set to run automatically once per week. You may change the frequency of the update or  the triggering mechanism altogether to match your needs. Look into the data_ingestion/pipeline.py file as the starting point for these changes.
+Please note that the ingestion in the example is set to run automatically once per week. You may change the frequency of the update or  the triggering mechanism altogether to match your needs. Look into the app/data_ingestion/pipeline.py file as the starting point for these changes.
 
 ## Getting Started
 

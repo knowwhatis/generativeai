@@ -21,5 +21,6 @@ mv deployment/cd/deploy-to-prod.yaml deployment/cd/unused-deploy-to-prod.yaml
 mv deployment/cd/staging.yaml deployment/cd/unused-staging.yaml
 mv app/patterns/agent_builder_search/resources_to_copy/deployment/cd/deploy-to-prod.yaml deployment/cd/deploy-to-prod.yaml
 mv app/patterns/agent_builder_search/resources_to_copy/deployment/cd/staging.yaml deployment/cd/staging.yaml
-mv app/patterns/agent_builder_search/resources_to_copy/data_ingestion/pipeline.py data_ingestion/pipeline.py
-mv app/patterns/agent_builder_search/resources_to_copy/data_ingestion/ingestion_component.py data_ingestion/ingestion_component.py
+mkdir app/data_ingestion
+mv app/patterns/agent_builder_search/resources_to_copy/data_ingestion/pipeline.py app/data_ingestion/pipeline.py
+mv app/patterns/agent_builder_search/resources_to_copy/data_ingestion/ingestion_component.py app/data_ingestion/ingestion_component.py
