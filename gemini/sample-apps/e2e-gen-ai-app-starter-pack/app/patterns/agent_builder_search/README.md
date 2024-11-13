@@ -22,7 +22,7 @@ The main addition to the base pattern is the addition of the ingestion component
 * **Cloud Build Integration:**  Deployment of ingestion pipelines is added to the CD pipelines of the starter pack.
 * **Customizable Code:** Easily adapt and customize the code to fit your specific application needs and data sources.
 
-From an infrastructure point of view, a vertexai agent builder datastore and search app are being initialised in both staging and prod environments. You can learn more about these [here](https://cloud.google.com/generative-ai-app-builder/docs/enterprise-search-introduction).
+From an infrastructure point of view, a *Vertexai Agent Builder Datastore* and *Search App* are being initialised in both staging and prod environments. You can learn more about these [here](https://cloud.google.com/generative-ai-app-builder/docs/enterprise-search-introduction).
 
 When a new build is triggered through a commit to the main branch, in addition to updating the backend application, the data ingestion pipeline is also updated.
 
