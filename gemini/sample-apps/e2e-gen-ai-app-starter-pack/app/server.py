@@ -35,6 +35,10 @@ from traceloop.sdk import Instruments, Traceloop
 # Or choose one of the following pattern chains to test by uncommenting it:
 
 # Custom RAG QA
+# from app.patterns.custom_rag_qa.chain import chain
+
+# Custom RAG with Agent Builder Search
+# Before uncommenting this line make sure you've followed the instruction from the README.md file under agent_builder_search folder
 # from app.patterns.agent_builder_search.chain import chain
 
 # LangGraph dummy agent
