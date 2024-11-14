@@ -14,6 +14,11 @@ locals {
     var.prod_project_id,
     var.staging_project_id
   ]
+  deploy_projects = [
+    var.prod_project_id,
+    var.staging_project_id
+  ]
+  #TODO: Added the line above, does that makes sense or is that pattern specific?
 }
 
 resource "google_storage_bucket" "bucket_load_test_results" {

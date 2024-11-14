@@ -1,0 +1,65 @@
+steps:
+  - name: "gcr.io/cloud-builders/gcloud"
+    id: trigger-deployment
+    entrypoint: gcloud
+    args:
+      - "run"
+      - "deploy"
+      - "genai-app-sample"
+      - "--image"
+      - "$_SINGLE_REGION-docker.pkg.dev/$PROJECT_ID/$_ARTIFACT_REGISTRY_REPO_NAME/$_CONTAINER_NAME"
+      - "--region"
+      - "$_SINGLE_REGION"
+      - "--project"
+      - $_PROD_PROJECT_ID
+      - "--min-instances"
+      - "1"
+      - "--no-cpu-throttling"
+      - "--cpu"
+      - "4"
+      - "--memory"
+      - "4Gi"
+      - "--concurrency"
+      - "40"
+      - "--service-account"
+      - "${_CLOUD_RUN_APP_SA_NAME}@${_PROD_PROJECT_ID}.iam.gserviceaccount.com"
+      - "--set-env-vars"
+      - "COMMIT_SHA=${COMMIT_SHA},DATA_STORE_ID=${_DATA_STORE_ID},SINGLE_REGION=${_SINGLE_REGION},MULTI_REGION=${_MULTI_REGION}"
+
+  - name: "python:3.10"
+    id: deploy-data-ingestion-pipeline-prod
+    entrypoint: bash
+    args:
+    - -c
+    - |
+      curl -sSL https://install.python-poetry.org | python3 -
+      export PATH="/builder/home/.local/bin:$$PATH"
+      poetry config virtualenvs.create false
+      poetry install 
+      poetry run python app/data_ingestion/pipeline.py
+    env:
+      - "INPUT_BUCKET=${_DATA_INGESTION_BUCKET_PREF}-${_PROD_PROJECT_ID}"
+      - "PIPELINE_ARTIFACT_OUTPUT=${_DATA_INGESTION_BUCKET_PREF}-${_PROD_PROJECT_ID}-pipeline-artifacts"
+      - "SINGLE_REGION=${_SINGLE_REGION}"
+      - "MULTI_REGION=${_MULTI_REGION}"
+      - "DATA_STORE_ID=${_DATA_STORE_ID}"
+      - "PROJECT_ID=${_PROD_PROJECT_ID}"
+      - "SERVICE_ACCOUNT=${_VERTEX_AI_APP_SA_NAME}@${_PROD_PROJECT_ID}.iam.gserviceaccount.com"
+      - "CRON_SCHEDULE=0 0 * * 0"
+      - "PIPELINE_NAME=${_INGESTION_PIPELINE_NAME}"
+
+substitutions:
+  _PROD_PROJECT_ID: YOUR_PROD_PROJECT_ID # Replace with your prod project ID
+  _CONTAINER_NAME: genai-app-sample
+  _DATA_INGESTION_APP_NAME: data-ingestion-app
+  _ARTIFACT_REGISTRY_REPO_NAME: genai-containers
+  _CLOUD_RUN_APP_SA_NAME: genai-app-sample-cr-sa
+  _VERTEX_AI_APP_SA_NAME: YOUR_VERTEX_AI_APP_SA_NAME
+  _SINGLE_REGION: YOUR_SINGLE_REGION_LOCATION
+  _DATA_INGESTION_BUCKET_PREF: DATA_INGESTION_BUCKET_PREFIX_NAME
+  _MULTI_REGION: YOUR_MULTI_REGION_LOCATION
+  _DATA_STORE_ID: YOUR_AGENT_BUILDER_DATASTORE_ID
+  _INGESTION_PIPELINE_NAME: YOUR_INGESTION_PIPELINE_NAME
+
+options:
+  logging: CLOUD_LOGGING_ONLY
